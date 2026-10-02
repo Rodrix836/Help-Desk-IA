@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Help Desk académico para una organización de Inteligencia Artificial" />
+  <title>NeuraDesk AI | Help Desk</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark">AI</div>
+      <div>
+        <h1>NeuraDesk AI</h1>
+        <p>Centro de soporte interno</p>
+      </div>
+    </div>
+    <button id="btnNewTicket" class="btn btn-primary">+ Nuevo ticket</button>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div>
+        <span class="eyebrow">ORGANIZACIÓN: NEURATECH AI</span>
+        <h2>Help Desk para incidencias de una empresa de Inteligencia Artificial</h2>
+        <p>Registra, prioriza y da seguimiento a solicitudes relacionadas con modelos de IA, infraestructura, accesos, datos y software.</p>
+      </div>
+      <div class="hero-chip">⚡ Triaje asistido</div>
+    </section>
+
+    <section class="stats" aria-label="Resumen de tickets">
+      <article class="stat-card"><span>Tickets totales</span><strong id="totalTickets">0</strong></article>
+      <article class="stat-card"><span>Abiertos</span><strong id="openTickets">0</strong></article>
+      <article class="stat-card"><span>En proceso</span><strong id="progressTickets">0</strong></article>
+      <article class="stat-card"><span>Resueltos</span><strong id="resolvedTickets">0</strong></article>
+    </section>
+
+    <section class="panel">
+      <div class="panel-header">
+        <div>
+          <h3>Gestión de tickets</h3>
+          <p>Filtra, busca y actualiza el estado de cada incidencia.</p>
+        </div>
+        <div class="filters">
+          <input id="searchInput" type="search" placeholder="Buscar por asunto o solicitante..." />
+          <select id="statusFilter">
+            <option value="Todos">Todos los estados</option>
+            <option value="Abierto">Abierto</option>
+            <option value="En proceso">En proceso</option>
+            <option value="Resuelto">Resuelto</option>
+          </select>
+          <select id="priorityFilter">
+            <option value="Todas">Todas las prioridades</option>
+            <option value="Alta">Alta</option>
+            <option value="Media">Media</option>
+            <option value="Baja">Baja</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Asunto</th>
+              <th>Categoría</th>
+              <th>Prioridad</th>
+              <th>Estado</th>
+              <th>Solicitante</th>
+              <th>Acción</th>
+            </tr>
+          </thead>
+          <tbody id="ticketTableBody"></tbody>
+        </table>
+      </div>
+      <div id="emptyState" class="empty-state hidden">No se encontraron tickets con esos filtros.</div>
+    </section>
+  </main>
+
+  <dialog id="ticketDialog">
+    <form id="ticketForm" method="dialog" class="ticket-form">
+      <div class="dialog-header">
+        <div>
+          <span class="eyebrow">NUEVA SOLICITUD</span>
+          <h3>Registrar ticket</h3>
+        </div>
+        <button id="btnCloseDialog" type="button" class="icon-btn" aria-label="Cerrar">×</button>
+      </div>
+
+      <div class="form-grid">
+        <label>Solicitante
+          <input id="requester" required maxlength="60" placeholder="Ej. Ana Torres" />
+        </label>
+        <label>Correo
+          <input id="email" type="email" required placeholder="ana@neuratech.ai" />
+        </label>
+      </div>
+
+      <label>Asunto
+        <input id="subject" required maxlength="100" placeholder="Ej. Error al ejecutar modelo de predicción" />
+      </label>
+
+      <label>Descripción
+        <textarea id="description" required rows="4" maxlength="500" placeholder="Describe el problema, mensaje de error o impacto..."></textarea>
+      </label>
+
+      <div class="ai-box">
+        <div>
+          <strong>🤖 Triaje asistido</strong>
+          <p>Analiza palabras clave para sugerir categoría y prioridad. Es una simulación académica, no un modelo ML real.</p>
+        </div>
+        <button id="btnSuggest" type="button" class="btn btn-secondary">Analizar</button>
+      </div>
+      <p id="suggestionText" class="suggestion hidden"></p>
+
+      <div class="form-grid">
+        <label>Categoría
+          <select id="category" required>
+            <option value="Modelos IA">Modelos IA</option>
+            <option value="Infraestructura">Infraestructura</option>
+            <option value="Datos">Datos</option>
+            <option value="Accesos">Accesos</option>
+            <option value="Software">Software</option>
+            <option value="Otros">Otros</option>
+          </select>
+        </label>
+        <label>Prioridad
+          <select id="priority" required>
+            <option value="Media">Media</option>
+            <option value="Alta">Alta</option>
+            <option value="Baja">Baja</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="dialog-actions">
+        <button id="btnCancel" type="button" class="btn btn-ghost">Cancelar</button>
+        <button type="submit" class="btn btn-primary">Guardar ticket</button>
+      </div>
+    </form>
+  </dialog>
+
+  <footer>
+    Proyecto académico · Help Desk para organización de Inteligencia Artificial · 2026
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
