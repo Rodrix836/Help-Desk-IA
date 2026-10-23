@@ -2,6 +2,8 @@
 
 Prototipo web de un servicio de gestión de incidencias para la empresa ficticia NeuraTech AI. Cada solicitante registra y consulta sus tickets; soporte ve la cola completa y actualiza estados. Los datos se guardan en PostgreSQL de Supabase y el acceso se controla con Supabase Auth y Row Level Security (RLS).
 
+**Demo publicada:** [NeuraDesk AI en GitHub Pages](https://rodrix836.github.io/Help-Desk-IA/). La publicación utiliza la rama `feature/neuradesk-supabase` mientras se revisa el pull request.
+
 El planteamiento completo, objetivos e indicadores están en [docs/CASO_PRACTICO.md](docs/CASO_PRACTICO.md).
 
 ## Funciones
@@ -15,7 +17,7 @@ El planteamiento completo, objetivos e indicadores están en [docs/CASO_PRACTICO
 
 ## Puesta en marcha
 
-Esta copia ya apunta al proyecto gratuito **NeuraDesk AI** (`qfpufmpkucnqcbdnuuuv`). La migración SQL se ejecutó allí el 23 de octubre de 2026 y `js/config.js` contiene únicamente la URL y la clave publicable. Para usar otro proyecto:
+Esta copia ya apunta al proyecto gratuito **NeuraDesk AI** (`qfpufmpkucnqcbdnuuuv`). La migración SQL se ejecutó allí el 23 de octubre de 2026, `js/config.js` contiene únicamente la URL y la clave publicable, y Supabase Auth permite el retorno a la demo publicada. Para usar otro proyecto:
 
 1. Crea un proyecto de Supabase.
 2. En **SQL Editor**, ejecuta el contenido de `supabase/migrations/20261023_initial.sql` una sola vez sobre ese proyecto nuevo.
