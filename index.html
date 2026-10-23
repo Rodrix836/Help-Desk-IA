@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Help Desk académico para una organización de Inteligencia Artificial" />
+  <meta name="description" content="NeuraDesk AI: registra y da seguimiento a incidencias de soporte." />
   <title>NeuraDesk AI | Help Desk</title>
   <link rel="stylesheet" href="css/styles.css" />
 </head>
@@ -16,10 +16,44 @@
         <p>Centro de soporte interno</p>
       </div>
     </div>
-    <button id="btnNewTicket" class="btn btn-primary">+ Nuevo ticket</button>
+    <div class="topbar-actions">
+      <span id="currentUser" class="current-user hidden"></span>
+      <button id="btnSignOut" class="btn btn-ghost hidden" type="button">Cerrar sesión</button>
+      <button id="btnNewTicket" class="btn btn-primary hidden" type="button">+ Nuevo ticket</button>
+    </div>
   </header>
 
   <main class="container">
+    <div id="notice" class="notice hidden" role="status" aria-live="polite"></div>
+
+    <section id="setupPanel" class="panel setup-panel hidden">
+      <h2>Conecta Supabase para empezar</h2>
+      <p>Este prototipo necesita la URL y la clave publicable del proyecto en <code>js/config.js</code>. Ejecuta antes la migración <code>supabase/migrations/20261023_initial.sql</code> en el editor SQL de Supabase.</p>
+      <p>Consulta los pasos completos en el README.</p>
+    </section>
+
+    <section id="authPanel" class="panel auth-panel hidden" aria-labelledby="authTitle">
+      <span class="eyebrow">ACCESO AL SERVICIO</span>
+      <h2 id="authTitle">Inicia sesión o crea una cuenta</h2>
+      <p>Los solicitantes ven sus propios tickets. El equipo de soporte puede gestionar el estado de todos los casos.</p>
+      <form id="authForm">
+        <label>Nombre para registro
+          <input id="authName" autocomplete="name" maxlength="60" placeholder="Tu nombre" />
+        </label>
+        <label>Correo electrónico
+          <input id="authEmail" type="email" autocomplete="email" required placeholder="nombre@empresa.com" />
+        </label>
+        <label>Contraseña
+          <input id="authPassword" type="password" autocomplete="current-password" required minlength="6" placeholder="Mínimo 6 caracteres" />
+        </label>
+        <div class="auth-actions">
+          <button id="btnLogin" class="btn btn-primary" type="submit">Iniciar sesión</button>
+          <button id="btnRegister" class="btn btn-secondary" type="button">Crear cuenta</button>
+        </div>
+      </form>
+    </section>
+
+    <div id="appContent" class="hidden">
     <section class="hero">
       <div>
         <span class="eyebrow">ORGANIZACIÓN: NEURATECH AI</span>
@@ -40,7 +74,7 @@
       <div class="panel-header">
         <div>
           <h3>Gestión de tickets</h3>
-          <p>Filtra, busca y actualiza el estado de cada incidencia.</p>
+          <p id="tableHelp">Filtra y busca las incidencias.</p>
         </div>
         <div class="filters">
           <input id="searchInput" type="search" placeholder="Buscar por asunto o solicitante..." />
@@ -69,7 +103,7 @@
               <th>Prioridad</th>
               <th>Estado</th>
               <th>Solicitante</th>
-              <th>Acción</th>
+              <th>Seguimiento</th>
             </tr>
           </thead>
           <tbody id="ticketTableBody"></tbody>
@@ -77,6 +111,7 @@
       </div>
       <div id="emptyState" class="empty-state hidden">No se encontraron tickets con esos filtros.</div>
     </section>
+    </div>
   </main>
 
   <dialog id="ticketDialog">
@@ -94,7 +129,7 @@
           <input id="requester" required maxlength="60" placeholder="Ej. Ana Torres" />
         </label>
         <label>Correo
-          <input id="email" type="email" required placeholder="ana@neuratech.ai" />
+          <input id="email" type="email" readonly />
         </label>
       </div>
 
@@ -137,15 +172,19 @@
 
       <div class="dialog-actions">
         <button id="btnCancel" type="button" class="btn btn-ghost">Cancelar</button>
-        <button type="submit" class="btn btn-primary">Guardar ticket</button>
+        <button id="btnSaveTicket" type="submit" class="btn btn-primary">Guardar ticket</button>
       </div>
     </form>
   </dialog>
 
   <footer>
-    Proyecto académico · Help Desk para organización de Inteligencia Artificial · 2026
+    Caso práctico académico · NeuraDesk AI · 2026
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/config.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>
+
+
